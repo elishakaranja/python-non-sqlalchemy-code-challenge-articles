@@ -1,23 +1,30 @@
-import ipdb; 
+#import ipdb ; 
 class Article:
     all = []
-    def __init__(self, author, magazine, title):
+    def __init__(self, author, magazine_given, title):
         self.author = author
-        self.magazine = magazine
-        self._title = title
+        self.magazine = magazine_given
+        self.title = title
         Article.all.append(self)#on init ,append every new instance to the list 
         
 
     @property
     def title(self):
         return self._title
-    # @title.setter
-    # def title(self,title):
-    #     if not isinstance(title, str):
-    #         raise TypeError("Title must be a string")
-    #     if not (5 <= len(title) <= 50):
-    #          raise ValueError("Title must be greater 5 and less that 50")
-    #     self._title = title
+    
+    @title.setter
+    def title(self,title):
+        # print(self._title)
+        #if self._title != None:
+        print(hasattr(self, "_title"))
+        
+        if not isinstance(title, str):
+            raise TypeError("Title must be a string")
+        if not (5 <= len(title) <= 50):
+             raise ValueError("Title must be greater 5 and less that 50")
+        if hasattr(self, "_title"):
+            raise AttributeError("Title cannot be changed")
+        self._title = title
 
     @property
     def author(self):
@@ -57,6 +64,19 @@ class Author:
     @property 
     def name(self):
         return self._name#no setter because --name cannot be changed
+     
+    @name.setter
+    def name(self,name):
+        if not isinstance(name,str):
+            raise TypeError("Name must be a string")
+        if len(name) <= 0:
+            raise ValueError("Names must be longer than 0 characters")
+
+       
+        
+
+    # @name.setter
+    # def name():
     
     @property
     def articles(self):#rerutn all articles 
@@ -126,7 +146,11 @@ class Magazine:
             if count > 2:
                 contributors.append(author)
         return contributors if contributors else None
-            
+    
+# author1 = Author("John")
+# mag1 = Magazine("The New Yorker", "Literature")
+# article = Article(author1,mag1, 123)
+# print(article.title)
 
                 
                 
